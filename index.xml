@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="BirdBird_Item_Sequencer"/>
+<index version="1" name="BirdBird_Item_Sequencer" commit="ae2594d4c73cb48e2b07bc8112806fd73fa73e3b">
+  <category name="Item Sequencer">
+    <reapack name="BirdBird_Item Sequencer.lua" type="script" desc="BirdBird_Item Sequencer">
+      <version name="1.0" author="BirdBird" time="2020-01-15T14:32:24Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/Bird-Bird/ReaScript-Item-Sequencer/raw/ae2594d4c73cb48e2b07bc8112806fd73fa73e3b/Item%20Sequencer/BirdBird_Item%20Sequencer.lua</source>
+        <source file="Modules/Keyboard.lua">https://github.com/Bird-Bird/ReaScript-Item-Sequencer/raw/ae2594d4c73cb48e2b07bc8112806fd73fa73e3b/Item%20Sequencer/Modules/Keyboard.lua</source>
+        <source file="Modules/MathHelper.lua">https://github.com/Bird-Bird/ReaScript-Item-Sequencer/raw/ae2594d4c73cb48e2b07bc8112806fd73fa73e3b/Item%20Sequencer/Modules/MathHelper.lua</source>
+        <source file="Modules/Mouse.lua">https://github.com/Bird-Bird/ReaScript-Item-Sequencer/raw/ae2594d4c73cb48e2b07bc8112806fd73fa73e3b/Item%20Sequencer/Modules/Mouse.lua</source>
+        <source file="Modules/Program.lua">https://github.com/Bird-Bird/ReaScript-Item-Sequencer/raw/ae2594d4c73cb48e2b07bc8112806fd73fa73e3b/Item%20Sequencer/Modules/Program.lua</source>
+        <source file="Modules/Utility.lua">https://github.com/Bird-Bird/ReaScript-Item-Sequencer/raw/ae2594d4c73cb48e2b07bc8112806fd73fa73e3b/Item%20Sequencer/Modules/Utility.lua</source>
+        <source file="Modules/Window.lua">https://github.com/Bird-Bird/ReaScript-Item-Sequencer/raw/ae2594d4c73cb48e2b07bc8112806fd73fa73e3b/Item%20Sequencer/Modules/Window.lua</source>
+      </version>
+    </reapack>
+  </category>
+</index>

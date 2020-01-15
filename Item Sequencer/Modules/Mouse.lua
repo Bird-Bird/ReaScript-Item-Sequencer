@@ -1,7 +1,7 @@
 --[[
    * Author: BirdBird
    * Licence: GPL v3
-   * Version: 1.0
+   * Version: 1.1
 	 * NoIndex: true
 --]]
 

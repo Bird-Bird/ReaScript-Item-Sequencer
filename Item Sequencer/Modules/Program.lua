@@ -33,6 +33,7 @@ function pr.init(keyboardHandler, mouseHandler, terminate) --SUBSCRIBE KEYS HERE
     terminateProgram = terminate
     keyboard = keyboardHandler
     mouse = mouseHandler
+
     initializeState()
 end
 
@@ -45,32 +46,11 @@ end
 local drawOverlay = true
 local programState = nil
 
-local mouseIntercepts = { 
-    'WM_LBUTTONDOWN',
-    --'WM_LBUTTONUP',
-    'WM_LBUTTONDBLCLK',
-    --'WM_MBUTTONDOWN',
-    --WM_MBUTTONUP     ,
-    --WM_MBUTTONDBLCLK ,
-    'WM_RBUTTONDOWN'   ,
-    'WM_RBUTTONUP'     ,
-    'WM_RBUTTONDBLCLK' ,
-    --WM_MOUSEWHEEL'
-    --WM_MOUSEHWHEEL   ,
-    --'WM_MOUSEMOVE'     ,
-    --'WM_SETCURSOR'     
-}
-
 function initializeState()
     --Keyboard stuff
     keyboard.subscribeKey('a', 65)
     keyboard.subscribeKey('q', 81)
     keyboard.subscribeKey('s', 83)
-    
-    --Mouse stuff
-    for i = 1, #mouseIntercepts do
-        windowHandler.intercept(mouseIntercepts[i])
-    end
     
     programState = newIdleState()
 end
@@ -87,10 +67,8 @@ function pr.draw()
 end
 
 function pr.exit()
-    for i = 1, #mouseIntercepts do
-        windowHandler.release(mouseIntercepts[i])
-    end
     keyboard.releaseKeys()
+    mouse.release()
     reaper.JS_LICE_DestroyBitmap(bm)
     windowHandler.cleanup()
 end
@@ -130,7 +108,7 @@ function newIdleState()
 
         end,
         update = function(self)
-            if m.focusedWindowIsArrange and m.inArrange and m.track ~= nil then --idle state only runs when mouse is in arrange
+            if m.inArrange and m.track ~= nil then --idle state only runs when mouse is in arrange
                 if m.leftDragStart then --paint action
                     if reaper.ValidatePtr(m.track, 'MediaTrack*') then --Only start painting when hovering over a track
                         local item = reaper.GetTrackMediaItem(m.track, 0)

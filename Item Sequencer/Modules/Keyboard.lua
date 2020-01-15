@@ -40,8 +40,8 @@ local allKeys = {
 local keys = {}
 local previousBuffer = {}
 local startTime = 0
+K.interceptState = false
 function K.init()
-    --reaper.JS_VKeys_Intercept(-1, 1)
     startTime = reaper.time_precise()
 end
 
@@ -110,6 +110,7 @@ function K.interceptKeys()
         local key = keys[i]
         reaper.JS_VKeys_Intercept( key.id, 1 )
     end
+    K.interceptState = true
 end
 
 function K.releaseKeys()
@@ -117,6 +118,7 @@ function K.releaseKeys()
         local key = keys[i]
         reaper.JS_VKeys_Intercept( key.id, -1 )
     end
+    K.interceptState = false
 end
 
 return K

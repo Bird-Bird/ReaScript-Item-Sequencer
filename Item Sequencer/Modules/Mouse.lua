@@ -64,6 +64,7 @@ mx.rightDragEnd = nil
 mx.idle = nil
 --===============--
 
+local interceptState = false
 function mx.updateMouse()
     local x, y = reaper.GetMousePosition()
     m.timePosition, m.track = windowHandler.arrangePositionFromMouse(x,y)
@@ -80,13 +81,22 @@ function mx.updateMouse()
     
     m.focusedWindowIsArrange = windowHandler.focusedWindowIsArrange()
     m.inArrange = windowHandler.mouseInArrange(x,y)
-
-    if not m.last_focusedWindowIsArrange and m.focusedWindowIsArrange then
-        keyboard.interceptKeys()
-    elseif m.last_focusedWindowIsArrange and not m.focusedWindowIsArrange then
-        keyboard.releaseKeys()
-    elseif not m.last_focusedWindowIsArrange and not m.focusedWindowIsArrange then
-        keyboard.releaseKeys()
+    
+    if m.last_inArrange and not m.inArrange and not m.leftDrag and not m.rightDrag then
+        if keyboard.interceptState then
+            keyboard.releaseKeys()
+        end
+        if interceptState then 
+            mx.release()
+        end
+    end
+    if not m.last_inArrange and m.inArrange and not m.leftDrag and not m.rightDrag then
+        if not keyboard.interceptState then
+            keyboard.interceptKeys()
+        end
+        if not interceptState then
+            mx.intercept()
+        end
     end
     
     if m.inArrange or (m.leftDrag or m.rightDrag) then
@@ -139,6 +149,40 @@ function mx.updateMouse()
     m.last_focusedWindowIsArrange = m.focusedWindowIsArrange
     m.last_inArrange = m.inArrange
     return m
+end
+
+local mouseIntercepts = { 
+    'WM_LBUTTONDOWN',
+    --'WM_LBUTTONUP',
+    'WM_LBUTTONDBLCLK',
+    --'WM_MBUTTONDOWN',
+    --WM_MBUTTONUP     ,
+    --WM_MBUTTONDBLCLK ,
+    'WM_RBUTTONDOWN'   ,
+    'WM_RBUTTONUP'     ,
+    'WM_RBUTTONDBLCLK' ,
+    --WM_MOUSEWHEEL'
+    --WM_MOUSEHWHEEL   ,
+    --'WM_MOUSEMOVE'     ,
+    --'WM_SETCURSOR'     
+}
+
+function mx.intercept()
+    if interceptState then return end
+    
+    for i = 1, #mouseIntercepts do
+        windowHandler.intercept(mouseIntercepts[i])
+    end
+    interceptState = true
+end
+
+function mx.release()
+    if not interceptState then return end
+    
+    for i = 1, #mouseIntercepts do
+        windowHandler.release(mouseIntercepts[i])
+    end
+    interceptState = false
 end
 
 return mx

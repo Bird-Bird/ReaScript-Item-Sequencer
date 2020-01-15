@@ -22,7 +22,7 @@ function w.init()
 end
 
 function w.intercept(message)
-    local WML_intercept = reaper.JS_WindowMessage_Intercept(arrangeWindow, message, false)
+    local intercept = reaper.JS_WindowMessage_Intercept(arrangeWindow, message, false)
 end
 
 function w.release(message)
@@ -45,11 +45,16 @@ function w.arrangePositionFromMouse(mx, my)
 end
 
 function w.mouseInArrange(mx , my)
+    --[[
     local ret, left, top, right, bottom = reaper.JS_Window_GetClientRect( arrangeWindow )
     local x, y = reaper.JS_Window_ScreenToClient( arrangeWindow, mx, my )
     x,y = x + left, y + top
 
     return maths.isBetween(x, left, right) and maths.isBetween(y, top, bottom)
+    --]]
+
+    local focus = reaper.JS_Window_FromPoint( mx, my )
+    return focus == arrangeWindow
 end
 
 function w.arrangePosToScreen(time, track)
@@ -73,6 +78,7 @@ end
 
 function w.focusedWindowIsArrange()
     local focusedWindow =  reaper.JS_Window_GetFocus() 
+    --local focusedWindow = reaper.JS_Window_GetForeground()
     local windowClass = reaper.JS_Window_GetClassName( focusedWindow )
     return focusedWindow == arrangeWindow
 end

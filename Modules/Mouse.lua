@@ -1,3 +1,10 @@
+--[[
+   * Author: BirdBird
+   * Licence: GPL v3
+   * Version: 1.0
+	 * NoIndex: true
+--]]
+
 local windowHandler = require('Window')
 local keyboard = require('Keyboard')
 

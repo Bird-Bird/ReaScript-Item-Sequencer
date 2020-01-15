@@ -1,3 +1,10 @@
+--[[
+   * Author: BirdBird
+   * Licence: GPL v3
+   * Version: 1.0
+	 * NoIndex: true
+--]]
+
 local u = {}
 function p(msg) reaper.ShowConsoleMsg(tostring(msg) .. '\n') end
 

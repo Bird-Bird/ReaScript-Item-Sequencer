@@ -1,4 +1,11 @@
 local maths = require('MathHelper')
+--[[
+   * Author: BirdBird
+   * Licence: GPL v3
+   * Version: 1.0
+	 * NoIndex: true
+--]]
+
 local utility = require('Utility')
 
 local w = {}
